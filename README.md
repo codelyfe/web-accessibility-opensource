@@ -1,8 +1,8 @@
 # Web Accessibility OpenSource
 
-Are you tired of allowing others to make money off of the UI a disabled person needs to interact with content out on the Open web?
+Make life easier for disabled vets | elderly | and everyone else who is having troubles interacting with content out on the WWW.
 
-Let's help the ones who are having troubles using the web!
+Help build safe and Reliable Code that can help others along the way!
 
 # How-to?
 
