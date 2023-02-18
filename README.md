@@ -1,4 +1,4 @@
-# web-accessibility-opensource
+# Web Accessibility OpenSource
 Lets help the ones who are having troubles using the web!
 
 # How-to?
