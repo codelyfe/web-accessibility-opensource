@@ -8,6 +8,8 @@ Let's help the ones who are having troubles using the web!
 
 Please watch video ada-pitch-vid.mp4 inside the git folder to see how it works.
 
+or Visit https://youtu.be/DilJPC0wN5c
+
 1. Upload files to device or server.
 
 2. Click on index.html or index-with-bootstrap.html to run preview.
