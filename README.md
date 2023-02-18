@@ -5,11 +5,7 @@ Lets help the ones who are having troubles using the web!
 
 1. Upload files to device or server.
 
-2. Click on index.html to run preview.
-
-or
-
-2. Click on index-with-bootstrap.html
+2. Click on index.html or index-with-bootstrap.html to run preview.
 
 3. Change out the code between 
 
