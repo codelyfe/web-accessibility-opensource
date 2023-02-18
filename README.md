@@ -1,5 +1,8 @@
 # Web Accessibility OpenSource
-Lets help the ones who are having troubles using the web!
+
+Are you tired of allowing others to make money off of the UI a disabled person needs to interact with content out on the Open web?
+
+Let's help the ones who are having troubles using the web!
 
 # How-to?
 
