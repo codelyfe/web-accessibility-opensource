@@ -1,0 +1,983 @@
+<!--
+ __________________________________  
+|                                  |
+|      Date Created: 1/21/2023     |
+|      By: Randal Burger Jr        |
+|      Last Edit: 1/22/2023        |
+|__________________________________|
+
+-->
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="style.css">
+  </head>
+  <style>
+    /**********************************************************************/
+    /*********************** START OF CSS *********************************/
+    /**********************************************************************/
+    /*--------------------------------------------------------------------*/
+    /**********************************************************************/
+    /*********************** MAIN PAGE CSS ********************************/
+    /**********************************************************************/
+    body {
+        padding: 25px;
+        background-color: white;
+        color: black;
+        font-size: 25px;
+        font-family: Arial, Helvetica, sans-serif;
+    }
+    /**********************************************************************/
+    /********************** TOGGLE FUNCTION CSS ***************************/
+    /**********************************************************************/
+    .img-hide{
+        display:none;
+    }
+    .video-hide{
+        display:none;
+    }
+    .dark-mode {
+        background-color: black;
+        color: white;
+    }
+    .large-text {
+        font-size:2em;
+    }
+    .large-image{
+      width:700px !important;
+    }
+    .read-font-text {
+        font-family: 'Courier New', Courier, monospace;
+    }
+    .outline-title{
+        outline-style: solid !important;
+        outline-color: rgb(249, 99, 99) !important;
+        outline-width: 2px !important;
+        outline-offset: 2px !important;
+        width: fit-content;
+    }
+    .outline-links{
+        color:red;
+        outline-style: solid !important;
+        outline-color: rgb(249, 99, 132) !important;
+        outline-width: 2px !important;
+        outline-offset: 2px !important;
+        width: fit-content;
+        border-radius:2px;
+        padding:1px;
+    }
+
+    .colorblind-text{
+      color:black;
+      background-color: white;
+    }
+    .center-text{
+      text-align: center;
+    }
+    .right-text{
+      text-align: right;
+    }
+    .left-text{
+      text-align: left;
+    }
+    .book-mode{
+      background-color: #e1dcbe;
+    }
+    /* Text To Speech*/
+    #play {
+      background-image: url(https://rpsthecoder.github.io/js-speech-synthesis/play.svg) !important;
+      padding:10px;
+      background-color: rgba(255, 255, 255, 0);
+      border: none;
+    }
+
+    #play.played {
+      background-image: url(https://rpsthecoder.github.io/js-speech-synthesis/play1.svg);
+      padding:10px;
+      background-color: rgba(255, 255, 255, 0);
+      border: none;
+    }
+
+    #pause {
+      background-image: url(https://rpsthecoder.github.io/js-speech-synthesis/pause.svg);
+      padding:10px;
+      background-color: rgba(255, 255, 255, 0);
+      border: none;
+    }
+
+    #pause.paused {
+      background-image: url(https://rpsthecoder.github.io/js-speech-synthesis/pause1.svg);
+      padding:10px;
+      background-color: rgba(255, 255, 255, 0);
+      border: none;
+    }
+
+    #stop {
+      background-image: url(https://rpsthecoder.github.io/js-speech-synthesis/stop.svg);
+      padding:10px;
+      background-color: rgba(255, 255, 255, 0);
+      border: none;
+    }
+
+    #stop.stopped {
+      background-image: url(https://rpsthecoder.github.io/js-speech-synthesis/stop1.svg);
+      padding:10px;
+      background-color: rgba(255, 255, 255, 0);
+      border: none;
+    }
+
+    
+    /**********************************************************************/
+    /****************** Toggle Switches / Buttons *************************/
+    /**********************************************************************/
+
+    /**/
+    button{
+        background-color: black;
+        color:white;
+        padding:5px;
+    }
+    /**/
+    .switch {
+      position: relative;
+      display: inline-block;
+      width: 60px;
+      height: 34px;
+      margin-left: 10px;
+      }
+
+    .switch input { 
+      opacity: 0;
+      width: 0;
+      height: 0;
+
+    }
+
+    .slider {
+      position: absolute;
+      cursor: pointer;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background-color: #ccc;
+      -webkit-transition: .4s;
+      transition: .4s;
+    }
+
+    .slider:before {
+      position: absolute;
+      content: "";
+      height: 26px;
+      width: 26px;
+      left: 4px;
+      bottom: 4px;
+      background-color: white;
+      -webkit-transition: .4s;
+      transition: .4s;
+    }
+
+    input:checked + .slider {
+      background-color: #2196F3;
+    }
+
+    input:focus + .slider {
+      box-shadow: 0 0 1px #2196F3;
+    }
+
+    input:checked + .slider:before {
+      -webkit-transform: translateX(26px);
+      -ms-transform: translateX(26px);
+      transform: translateX(26px);
+    }
+
+    /* Rounded sliders */
+    .slider.round {
+      border-radius: 34px;
+    }
+
+    .slider.round:before {
+      border-radius: 50%;
+    }
+    /**********************************************************************/
+    /********** Toggle 3rd Side Nav For Toggle Functions ******************/
+    /**********************************************************************/
+    .sidenav2 {
+        height: 100%;
+        width: 0;
+        position: fixed;
+        z-index: -1;
+        top: 0;
+        right: 0;
+        background-color: #fff;
+        overflow-x: hidden;
+        transition: 0.5s;
+        padding-top: 60px;
+
+    }
+    .sidenav2 a {
+      padding: 8px 8px 8px 32px;
+      text-decoration: none;
+      font-size: 25px;
+      color: #818181;
+      display: block;
+      transition: 0.3s;
+    }
+
+    .sidenav2 a:hover {
+      color: #f1f1f1;
+    }
+
+    .sidenav2 .closebtn2 {
+      position: absolute;
+      top: 0;
+      right: 238px;
+      font-size: 36px;
+      margin-left: 50px;
+    }
+
+    @media screen and (max-height: 450px) {
+      .sidenav2 {padding-top: 15px;}
+      .sidenav2 a {font-size: 18px;}
+    }
+    /**********************************************************************/
+    /********** Toggle 2nd Side Nav For Toggle Functions ******************/
+    /**********************************************************************/
+    .sidenav1 {
+        height: 100%;
+        width: 0;
+        position: fixed;
+        z-index: 2;
+        top: 0;
+        right: 0;
+        background-color: #fff;
+        overflow-x: hidden;
+        transition: 0.5s;
+        padding-top: 60px;
+
+    }
+    .sidenav1 a {
+      padding: 8px 8px 8px 32px;
+      text-decoration: none;
+      font-size: 25px;
+      color: #818181;
+      display: block;
+      transition: 0.3s;
+    }
+
+    .sidenav1 a:hover {
+      color: #f1f1f1;
+    }
+
+    .sidenav1 .closebtn {
+      position: absolute;
+      top: 0;
+      right: 138px;
+      font-size: 36px;
+      margin-left: 50px;
+    }
+
+    @media screen and (max-height: 450px) {
+      .sidenav1 {padding-top: 15px;}
+      .sidenav1 a {font-size: 18px;}
+    }
+    /**********************************************************************/
+    /********** Toggle 1st Side Nav For Toggle Functions ******************/
+    /**********************************************************************/
+    .sidenav {
+      height: 100%;
+      width: 0;
+      position: fixed;
+      z-index: 3;
+      top: 0;
+      right: 0;
+      background-color: #000;
+      overflow-x: hidden;
+      transition: 0.5s;
+      padding-top: 60px;
+    
+    }
+
+    .sidenav a {
+      padding: 8px 8px 8px 32px;
+      text-decoration: none;
+      font-size: 25px;
+      color: #818181;
+      display: block;
+      transition: 0.3s;
+    }
+
+    .sidenav a:hover {
+      color: #f1f1f1;
+    }
+
+    .sidenav .closebtn {
+      position: absolute;
+      top: 0;
+      right: 25px;
+      font-size: 36px;
+      margin-left: 50px;
+    }
+
+    @media screen and (max-height: 450px) {
+      .sidenav {padding-top: 15px;}
+      .sidenav a {font-size: 18px;}
+    }
+    /**********************************************************************/
+    /************************* END OF CSS *********************************/
+    /**********************************************************************/
+  </style>
+  <body>
+  <!--/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\-->
+  <!--| TEST CONTENT BELOW THIS LINE |-->
+  <article> 
+  <h1>Is your site ADA compliant?</h1>
+  <h2>We can help you!</h2>
+
+  <p id="myDIV">Our company offers you a tool that can enhance your website to be interactive with all sorts of visitors.</p>
+  
+  Links below will help you navigate ADA standards for web interactions.
+  <br/><br/>
+  <a href="#">Find out more about ADA compliance!</a>
+  <br/><br/>
+  <a href="https://www.w3.org/TR/UNDERSTANDING-WCAG20/">Guide to implementing Web Content Accessibility</a>
+  
+  </article>
+
+  <br/><br/>
+  <img src="https://placehold.co/300x300" alt="Image" style="width:auto;border-radius: 5px;" srcset="https://placehold.co/300x300">
+  <br/><br/>
+  
+
+  <video autoplay muted loop id="myVideo" style="width:300px;">
+    <source src="https://www.w3schools.com/howto/rain.mp4" type="video/mp4">
+    Your browser does not support HTML5 video.
+  </video>
+
+  <video autoplay muted loop id="myVideo" style="width:300px;">
+    <source src="https://www.w3schools.com/howto/rain.mp4" type="video/mp4">
+    Your browser does not support HTML5 video.
+  </video>
+
+  <video autoplay muted loop id="myVideo" style="width:300px;">
+    <source src="https://www.w3schools.com/howto/rain.mp4" type="video/mp4">
+    Your browser does not support HTML5 video.
+  </video>
+
+  <!--| TEST CONTENT ABOVE THIS LINE |-->
+  <!--/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\-->
+
+
+<!--|[000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000]|-->
+<!--|[000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000]|-->
+<!--|[000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000]|-->
+
+
+    <span style="font-size:30px;cursor:pointer;border: 3px solid #2196f3;position:fixed;bottom:25px;right:20px; padding:4px;border-radius:10px" onclick="openNav()"><i class="fa fa-universal-access" aria-hidden="true" style="color: #2196f3;"></i></span>
+
+    <div id="mySidenav" class="sidenav">
+      <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">&times;</a>
+    <!--||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||-->
+    <div >
+    <!--<span style="font-weight:bold;color:#ff9800;float:right !important;font-size: 25px;">Enjoy ADA compliant Features</span>-->
+    <br/><br/>
+    <button onclick="myFunction()"><i class="fa fa-star-half-o" aria-hidden="true" style="font-size: 20px !important;margin-left: 23px;"></i></button>
+    <!--<span style="font-size: 10px;color: #fff;margin-left: 16px;padding-top: 4px;">Dark Mode</span>-->
+    <label class="switch">
+      <input type="checkbox" onclick="myFunction()">
+      <span class="slider round"></span>
+    </label>
+    <br/><hr/>
+    <button onclick="myFunction3()"><i class="fa fa-text-height" aria-hidden="true" style="font-size: 20px !important;margin-left: 23px;"></i></button>
+    <label class="switch">
+      <input type="checkbox" onclick="myFunction3()">
+      <span class="slider round"></span>
+    </label>
+    <br/><hr/>
+    <button onclick="myFunction2()"><i class="fa fa-eye" aria-hidden="true" style="font-size: 20px !important;margin-left: 23px;"></i></button>
+    <label class="switch">
+      <input type="checkbox" onclick="myFunction2()">
+      <span class="slider round"></span>
+    </label>    
+    <br/><hr/>
+    <button onclick="myFunction8()"><i class="fa fa-window-maximize" aria-hidden="true" style="font-size: 20px !important;margin-left: 23px;"></i></button>
+    <label class="switch">
+      <input type="checkbox" onclick="myFunction8()">
+      <span class="slider round"></span>
+    </label>
+    <br/><hr/>
+    <button onclick="myFunction88()"><i class="fa fa-file-image-o" aria-hidden="true" style="font-size: 20px !important;margin-left: 23px;"></i></button>
+    <label class="switch">
+      <input type="checkbox" onclick="myFunction88()">
+      <span class="slider round"></span>
+    </label>
+    <br/><hr/>
+    <button onclick="myFunction889()"><i class="fa fa-link" aria-hidden="true" style="font-size: 20px !important;margin-left: 23px;"></i></button>
+    <label class="switch">
+      <input type="checkbox" onclick="myFunction889()">
+      <span class="slider round"></span>
+    </label>
+    <br/><hr/>
+   
+    <button onclick="openNav1()" style="font-size:15px;background-color: white;color: black;border-radius: 10px;margin-left: 5px;"><i class="fa fa-arrow-left" aria-hidden="true" style="font-size: 20px !important;"></i> MORE</button>
+
+    <br/>
+    <br/>
+    </div>
+    <!--||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||-->
+    </div>
+
+
+<!--|[000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000]|-->
+<!--|[000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000]|-->
+<!--|[000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000]|-->
+
+
+
+<!--|[000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000]|-->
+<!--|[000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000]|-->
+<!--|[000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000]|-->
+
+    <!---->
+    <div id="mySidenav1" class="sidenav1">
+      <a href="javascript:void(0)" class="closebtn" onclick="closeNav1()">&times;</a>
+      <div style="padding-left:10px;">
+        <!--<span style="font-weight:bold;color:#ff9800;float:right !important;font-size: 25px;">Enjoy ADA compliant Features</span>-->
+        <br/><br/>
+        <button onclick="myFunctionVideo()" style="margin-left: 13px;background-color: rgba(255, 255, 255, 0);margin-bottom:10px;border: none;color: black;"><i class="fa fa-file-video-o" aria-hidden="true" style="color:white;font-size: 20px !important;font-size: 20px !important;background: black;padding: 8px;border-radius: 40px;"></i> <br/>Remove<br/>Videos</button>
+        <br/><br/>
+        <label class="switch">
+          <input type="checkbox" onclick="myFunctionVideo()">
+          <span class="slider round" style="border: 2px black solid;"></span>
+        </label>
+        <br/><br/>
+        <button onclick="myFunctionColorBlind()" style="margin-left: 15px;background-color: rgba(255, 255, 255, 0);margin-bottom:10px;border: none;color: black;"><i class="fa fa-eye" aria-hidden="true" style="color:white;font-size: 20px !important;font-size: 20px !important;background: black;padding: 8px;border-radius: 40px;"></i> <br/>Color<br/>Blind</button>
+        <br/>
+        <label class="switch">
+          <input type="checkbox" onclick="myFunctionColorBlind()">
+          <span class="slider round" style="border: 2px black solid;"></span>
+        </label>
+        <br/><br/>
+        <button onclick="myFunctionLargeImage()" style="margin-left: 15px;background-color: rgba(255, 255, 255, 0);margin-bottom:10px;border: none;color: black;"><i class="fa fa-picture-o" aria-hidden="true" style="color:white;font-size: 20px !important;font-size: 20px !important;background: black;padding: 8px;border-radius: 40px;"></i> <br/>Large<br/>Images</button>
+        <br/>
+        <label class="switch">
+          <input type="checkbox" onclick="myFunctionLargeImage()">
+          <span class="slider round" style="border: 2px black solid;"></span>
+        </label>
+        <!--<button onclick="myFunction3()"><i class="fa fa-text-height" aria-hidden="true" style="font-size: 50px !important;"></i></button>
+        <br/><br/>
+        <button onclick="myFunction2()"><i class="fa fa-eye" aria-hidden="true" style="font-size: 50px !important;"></i></button>  
+        <br/><br/>
+        <button onclick="myFunction8()"><i class="fa fa-window-maximize" aria-hidden="true" style="font-size: 50px !important;"></i></button>
+        <br/><br/>
+        <button onclick="myFunction88()"><i class="fa fa-file-image-o" aria-hidden="true" style="font-size: 50px !important;"></i></button>
+        <br/><br/>
+        <button onclick="myFunction889()"><i class="fa fa-link" aria-hidden="true" style="font-size: 50px !important;"></i></button>
+        <br/>-->
+        <br/><br/><br/>
+        <button onclick="openNav2()" style="font-size:15px;background-color: black;color: white;border-radius: 10px;margin-left: 5px;"><i class="fa fa-arrow-left" aria-hidden="true" style="font-size: 20px !important;"></i> MORE</button>
+      </div>
+    <!---->
+
+<!--|[000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000]|-->
+<!--|[000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000]|-->
+<!--|[000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000]|-->
+
+
+<!--|[000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000]|-->
+<!--|[000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000]|-->
+<!--|[000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000]|-->
+    <!---->
+    <div id="mySidenav2" class="sidenav2">
+      <a href="javascript:void(0)" class="closebtn2" onclick="closeNav2()">&times;</a>
+      <div style="padding-left:10px;">
+        <!--<span style="font-weight:bold;color:#ff9800;float:right !important;font-size: 25px;">Enjoy ADA compliant Features</span>-->
+        <br/><br/>
+        <button onclick="myFunctionCenterText()" style="margin-left: 15px;background-color: rgba(255, 255, 255, 0);margin-bottom:10px;border: none;color: black;"><i class="fa fa-align-center" aria-hidden="true" style="color:white;font-size: 20px !important;font-size: 20px !important;background: black;padding: 8px;border-radius: 40px;"></i> <br/>Center<br/>Text</button>
+        <br/>
+        <label class="switch">
+          <input type="checkbox" onclick="myFunctionCenterText()">
+          <span class="slider round" style="border: 2px black solid;"></span>
+        </label>
+        <br/><br/>
+        <button onclick="myFunctionTextRight()" style="margin-left: 15px;background-color: rgba(255, 255, 255, 0);margin-bottom:10px;border: none;color: black;"><i class="fa fa-align-right" aria-hidden="true" style="color:white;font-size: 20px !important;font-size: 20px !important;background: black;padding: 8px;border-radius: 40px;"></i> <br/>Text<br/>Right</button>
+        <br/>
+        <label class="switch">
+          <input type="checkbox" onclick="myFunctionTextRight()">
+          <span class="slider round" style="border: 2px black solid;"></span>
+        </label>
+        <br/><br/>
+        <button onclick="myFunctionTextLeft()" style="margin-left: 15px;background-color: rgba(255, 255, 255, 0);margin-bottom:10px;border: none;color: black;"><i class="fa fa-align-left" aria-hidden="true" style="color:white;font-size: 20px !important;font-size: 20px !important;background: black;padding: 8px;border-radius: 40px;"></i> <br/>Text<br/>Left</button>
+        <br/>
+        <label class="switch">
+          <input type="checkbox" onclick="myFunctionTextLeft()">
+          <span class="slider round" style="border: 2px black solid;"></span>
+        </label>
+        <br/><br/>
+        <button onclick="myFunctionBookMode()" style="margin-left: 15px;background-color: rgba(255, 255, 255, 0);margin-bottom:10px;border: none;color: black;"><i class="fa fa-book" aria-hidden="true" style="color:white;font-size: 20px !important;font-size: 20px !important;background: black;padding: 8px;border-radius: 40px;"></i> <br/>Book<br/>Mode</button>
+        <br/>
+        <label class="switch">
+          <input type="checkbox" onclick="myFunctionBookMode()">
+          <span class="slider round" style="border: 2px black solid;"></span>
+        </label>
+
+        <br/>
+        <br/>
+        <div id="google_translate_element"></div>
+     
+        
+        <span style="font-size:13px;">Text to Speech (English)</span>
+        <div class=buttons style="position: relative; bottom: 0; right: -39px;">
+          <button id=play></button> &nbsp;
+          <button id=pause></button> &nbsp;
+          <button id=stop></button>
+        </div>
+        <br/>
+        <!--<button onclick="myFunction3()"><i class="fa fa-text-height" aria-hidden="true" style="font-size: 50px !important;"></i></button>
+        <br/><br/>
+        <button onclick="myFunction2()"><i class="fa fa-eye" aria-hidden="true" style="font-size: 50px !important;"></i></button>  
+        <br/><br/>
+        <button onclick="myFunction8()"><i class="fa fa-window-maximize" aria-hidden="true" style="font-size: 50px !important;"></i></button>
+        <br/><br/>
+        <button onclick="myFunction88()"><i class="fa fa-file-image-o" aria-hidden="true" style="font-size: 50px !important;"></i></button>
+        <br/><br/>
+        <button onclick="myFunction889()"><i class="fa fa-link" aria-hidden="true" style="font-size: 50px !important;"></i></button>
+        <br/>-->
+      </div>
+    <!---->
+<!--|[000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000]|-->
+<!--|[000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000]|-->
+<!--|[000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000]|-->
+
+<!--|###############################################################################################################################################|-->
+<!--|###############################################################################################################################################|-->
+<!--|###############################################################################################################################################|-->
+<!--| Toggle Functions |-->
+<script>
+/////////////////////////////////////////////////////////////////////////////////////////////////////
+        // Toggle Dark Mode
+        /////////////////////////////////////////////////////////////////////////////////////////////////////
+//        function myFunction() {
+//        var element = document.body;
+//        element.classList.toggle("dark-mode");
+//        }
+        //
+        function myFunction() {
+            const list = document.getElementsByTagName("body")[0];
+            list.classList.toggle("dark-mode");
+            //const list1 = document.getElementsByTagName("h1")[0];
+            //list1.classList.toggle("outline-title");
+        }
+/////////////////////////////////////////////////////////////////////////////////////////////////////
+        // Toggle Large Text
+//        function myFunction3() {
+//        var l = document.body;
+//        l.classList.toggle("large-text");
+//        }
+/////////////////////////////////////////////////////////////////////////////////////////////////////
+        function myFunction3() {
+            const list = document.getElementsByTagName("h2")[0];
+            list.classList.toggle("large-text");
+            //
+            const list1 = document.getElementsByTagName("h1")[0];
+            list1.classList.toggle("large-text");
+            //
+            const list2 = document.getElementsByTagName("p")[0];
+            list2.classList.toggle("large-text");
+            //
+            const list3 = document.getElementsByTagName("a")[0];
+            list3.classList.toggle("large-text");
+        }
+/////////////////////////////////////////////////////////////////////////////////////////////////////
+        // Toggle Readable font Text
+//        function myFunction2() {
+//        var x = document.body;
+//        x.classList.toggle("read-font-text");
+//        }
+        //
+        function myFunction2() {
+            const list = document.getElementsByTagName("body")[0];
+            list.classList.toggle("read-font-text");
+            //const list1 = document.getElementsByTagName("h1")[0];
+            //list1.classList.toggle("outline-title");
+        }
+/////////////////////////////////////////////////////////////////////////////////////////////////////
+        // Toggle Titles
+        function myFunction8() {
+            const list = document.getElementsByTagName("h2")[0];
+            list.classList.toggle("outline-title");
+            const list1 = document.getElementsByTagName("h1")[0];
+            list1.classList.toggle("outline-title");
+        }
+/////////////////////////////////////////////////////////////////////////////////////////////////////
+if (window.NodeList && !NodeList.prototype.forEach) {
+                    NodeList.prototype.forEach = function(callback, thisArg) {
+                      thisArg = thisArg || window;
+                      for (var i = 0; i < this.length; i++) {
+                        callback.call(thisArg, this[i], i, this);
+                      }
+                    };
+                  }
+        // Toggle Hide Images
+        function myFunction88() {
+            document.querySelectorAll('img')
+              .forEach(function(p3) {
+                p3.classList.toggle('img-hide');
+            });
+            //const list = document.getElementsByTagName("img")[0];
+            //list.classList.toggle("img-hide");
+        }
+/////////////////////////////////////////////////////////////////////////////////////////////////////
+        // Toggle Hide Videos
+//        function myFunctionVideo() {
+//          var pElems = document.getElementsByTagName("video");
+//          for ( var i = 0; i < pElems.length; i++) {
+//            pElems.classList.toggle("video-hide");
+//          }
+//        }
+        if (window.NodeList && !NodeList.prototype.forEach) {
+            NodeList.prototype.forEach = function(callback, thisArg) {
+              thisArg = thisArg || window;
+              for (var i = 0; i < this.length; i++) {
+                callback.call(thisArg, this[i], i, this);
+              }
+            };
+          }
+
+        function myFunctionVideo() {
+          document.querySelectorAll('video')
+              .forEach(function(p) {
+                p.classList.toggle('video-hide');
+            });
+        }
+ 
+//
+/////////////////////////////////////////////////////////////////////////////////////////////////////      
+        // Toggle Outline Links
+        if (window.NodeList && !NodeList.prototype.forEach) {
+            NodeList.prototype.forEach = function(callback, thisArg) {
+              thisArg = thisArg || window;
+              for (var i = 0; i < this.length; i++) {
+                callback.call(thisArg, this[i], i, this);
+              }
+            };
+          }
+
+        function myFunction889() {
+          document.querySelectorAll('a')
+              .forEach(function(p) {
+                p.classList.toggle('outline-links');
+            });
+        }
+
+
+        
+ //       function myFunction889() {
+ //           const list2 = document.getElementsByTagName("a")[0]; 
+ //           list2.classList.toggle("outline-links");
+ //       }
+
+
+
+/////////////////////////////////////////////////////////////////////////////////////////////////////
+        if (window.NodeList && !NodeList.prototype.forEach) {
+                    NodeList.prototype.forEach = function(callback, thisArg) {
+                      thisArg = thisArg || window;
+                      for (var i = 0; i < this.length; i++) {
+                        callback.call(thisArg, this[i], i, this);
+                      }
+                    };
+                  }
+        // Toggle ColorBlind
+        function myFunctionColorBlind() {
+            //
+            document.querySelectorAll('h2')
+              .forEach(function(pl) {
+                pl.classList.toggle('colorblind-text');
+            });
+            //
+            document.querySelectorAll('a')
+              .forEach(function(pls) {
+                pls.classList.toggle('colorblind-text');
+            });
+        }
+
+
+/////////////////////////////////////////////////////////////////////////////////////////////////////
+        if (window.NodeList && !NodeList.prototype.forEach) {
+                    NodeList.prototype.forEach = function(callback, thisArg) {
+                      thisArg = thisArg || window;
+                      for (var i = 0; i < this.length; i++) {
+                        callback.call(thisArg, this[i], i, this);
+                      }
+                    };
+                  }
+        // Toggle ColorBlind
+        function myFunctionLargeImage() {
+            //
+            document.querySelectorAll('img')
+              .forEach(function(plss) {
+                plss.classList.toggle('large-image');
+            });
+            //
+        }
+//////////////////////////////////////////////4///////////////////////////////////////////////////////
+if (window.NodeList && !NodeList.prototype.forEach) {
+                    NodeList.prototype.forEach = function(callback, thisArg) {
+                      thisArg = thisArg || window;
+                      for (var i = 0; i < this.length; i++) {
+                        callback.call(thisArg, this[i], i, this);
+                      }
+                    };
+                  }
+        // Toggle CenterText
+        function myFunctionCenterText() {
+            //
+            document.querySelectorAll('p')
+              .forEach(function(plsss) {
+                plsss.classList.toggle('center-text');
+            });
+            //
+            document.querySelectorAll('h1')
+              .forEach(function(plsssd) {
+                plsssd.classList.toggle('center-text');
+            });
+            //
+            document.querySelectorAll('h2')
+              .forEach(function(plsssdd) {
+                plsssdd.classList.toggle('center-text');
+            });
+            //
+        }
+/////////////////////////////////////////////////////////////////////////////////////////////////////
+if (window.NodeList && !NodeList.prototype.forEach) {
+                    NodeList.prototype.forEach = function(callback, thisArg) {
+                      thisArg = thisArg || window;
+                      for (var i = 0; i < this.length; i++) {
+                        callback.call(thisArg, this[i], i, this);
+                      }
+                    };
+                  }
+        // Toggle CenterText
+        function myFunctionTextRight() {
+            //
+            document.querySelectorAll('p')
+              .forEach(function(plsss) {
+                plsss.classList.toggle('right-text');
+            });
+            //
+            document.querySelectorAll('h1')
+              .forEach(function(plsssd) {
+                plsssd.classList.toggle('right-text');
+            });
+            //
+            document.querySelectorAll('h2')
+              .forEach(function(plsssdd) {
+                plsssdd.classList.toggle('right-text');
+            });
+            //
+        }
+/////////////////////////////////////////////////////////////////////////////////////////////////////
+if (window.NodeList && !NodeList.prototype.forEach) {
+                    NodeList.prototype.forEach = function(callback, thisArg) {
+                      thisArg = thisArg || window;
+                      for (var i = 0; i < this.length; i++) {
+                        callback.call(thisArg, this[i], i, this);
+                      }
+                    };
+                  }
+        // Toggle CenterText
+        function myFunctionTextLeft() {
+            //
+            document.querySelectorAll('p')
+              .forEach(function(plsss) {
+                plsss.classList.toggle('left-text');
+            });
+            //
+            document.querySelectorAll('h1')
+              .forEach(function(plsssd) {
+                plsssd.classList.toggle('left-text');
+            });
+            //
+            document.querySelectorAll('h2')
+              .forEach(function(plsssdd) {
+                plsssdd.classList.toggle('left-text');
+            });
+            //
+        }
+/////////////////////////////////////////////////////////////////////////////////////////////////////
+if (window.NodeList && !NodeList.prototype.forEach) {
+                    NodeList.prototype.forEach = function(callback, thisArg) {
+                      thisArg = thisArg || window;
+                      for (var i = 0; i < this.length; i++) {
+                        callback.call(thisArg, this[i], i, this);
+                      }
+                    };
+                  }
+        // Toggle Book Mode
+        function myFunctionBookMode() {
+            //
+            document.querySelectorAll('p')
+              .forEach(function(plsss) {
+                plsss.classList.toggle('center-text');
+            });
+            //
+            document.querySelectorAll('h1')
+              .forEach(function(plsssd) {
+                plsssd.classList.toggle('center-text');
+            });
+            //
+            document.querySelectorAll('h2')
+              .forEach(function(plsssdd) {
+                plsssdd.classList.toggle('center-text');
+            });
+            //
+            document.querySelectorAll('video')
+              .forEach(function(p4) {
+                p4.classList.toggle('video-hide');
+            });
+            document.querySelectorAll('img')
+              .forEach(function(p3) {
+                p3.classList.toggle('img-hide');
+            });
+            const list = document.getElementsByTagName("body")[0];
+            list.classList.toggle("book-mode")
+        }
+/////////////////////////////////////////////////////////////////////////////////////////////////////
+    </script>
+<!--| Toggle Functions |-->
+<!--|###############################################################################################################################################|-->
+<!--|###############################################################################################################################################|-->
+<!--|###############################################################################################################################################|-->
+<!--|-----------------------------------------------------------------------------------------------------------------------------------------------|-->
+<!--|###############################################################################################################################################|-->
+<!--|###############################################################################################################################################|-->
+<!--|###############################################################################################################################################|-->
+<!--| Side Nav Open and Close Button .JS |-->
+    <script>
+      function openNav() {
+        document.getElementById("mySidenav").style.width = "90px";
+      }
+      
+      function closeNav() {
+        document.getElementById("mySidenav").style.width = "0";
+      }
+    </script>
+
+    <script>
+      function openNav1() {
+        document.getElementById("mySidenav1").style.width = "190px";
+      }
+      
+      function closeNav1() {
+        document.getElementById("mySidenav1").style.width = "0";
+      }
+    </script>
+
+    <script>
+      function openNav2() {
+        document.getElementById("mySidenav2").style.width = "290px";
+      }
+      
+      function closeNav2() {
+        document.getElementById("mySidenav2").style.width = "0";
+      }
+    </script>
+    <!--| Side Nav Open and Close Button .JS |-->
+    <!--|###############################################################################################################################################|-->
+    <!--|###############################################################################################################################################|-->
+    <!--|###############################################################################################################################################|-->
+    
+    <!--| GOOGLE TRANSLATE |-->
+    <script type="text/javascript">
+      function googleTranslateElementInit() {
+          new google.translate.TranslateElement(
+              {pageLanguage: 'en'},
+              'google_translate_element'
+          );
+      }
+    </script>
+   <script type="text/javascript" src="https://translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"></script>
+   <!--| GOOGLE TRANSLATE |-->
+
+
+<!--| TEXT-2-SPEECH |-->
+<script>
+onload = function() {
+	if ('speechSynthesis' in window) with(speechSynthesis) {
+
+		var playEle = document.querySelector('#play');
+		var pauseEle = document.querySelector('#pause');
+		var stopEle = document.querySelector('#stop');
+		var flag = false;
+
+		playEle.addEventListener('click', onClickPlay);
+		pauseEle.addEventListener('click', onClickPause);
+		stopEle.addEventListener('click', onClickStop);
+
+		function onClickPlay() {
+			if (!flag) {
+				flag = true;
+				utterance = new SpeechSynthesisUtterance(document.querySelector('article').textContent);
+				utterance.voice = getVoices()[0];
+				utterance.onend = function() {
+					flag = false;
+					playEle.className = pauseEle.className = '';
+					stopEle.className = 'stopped';
+				};
+				playEle.className = 'played';
+				stopEle.className = '';
+				speak(utterance);
+			}
+			if (paused) { /* unpause/resume narration */
+				playEle.className = 'played';
+				pauseEle.className = '';
+				resume();
+			}
+		}
+
+		function onClickPause() {
+			if (speaking && !paused) { /* pause narration */
+				pauseEle.className = 'paused';
+				playEle.className = '';
+				pause();
+			}
+		}
+
+		function onClickStop() {
+			if (speaking) { /* stop narration */
+				/* for safari */
+				stopEle.className = 'stopped';
+				playEle.className = pauseEle.className = '';
+				flag = false;
+				cancel();
+
+			}
+		}
+
+	}
+
+	else { /* speech synthesis not supported */
+		msg = document.createElement('h5');
+		msg.textContent = "Detected no support for Speech Synthesis";
+		msg.style.textAlign = 'center';
+		msg.style.backgroundColor = 'red';
+		msg.style.color = 'white';
+		msg.style.marginTop = msg.style.marginBottom = 0;
+		document.body.insertBefore(msg, document.querySelector('div'));
+	}
+
+}
+</script>
+<!--| TEXT-2-SPEECH |-->
+
+
+    <!--| ================================== |-->
+    <!--| ================================== |-->
+    <!--| ===============END================ |-->
+    <!--| ================================== |-->
+    <!--| ================================== |-->
+  </body>
+</html>
