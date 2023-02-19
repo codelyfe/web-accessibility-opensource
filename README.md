@@ -23,3 +23,5 @@ and
 ```| TEST CONTENT ABOVE THIS LINE | ```
 
 To display your own content.
+
+For Tech Support: https://support-desk.bss.design/index.html
